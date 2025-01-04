@@ -30,6 +30,9 @@ async def update_message(
 
 
 @app.delete('/user/{user_id}')
-async def delite_user(user_id: str) -> str:
-    users.pop(user_id)
-    return f'Пользователь {user_id} удалён'
+async def delete_user(user_id: str) -> str:
+    if user_id in users:
+        users.pop(user_id)
+        return f'Пользователь {user_id} удалён'
+    else:
+        raise HTTPException(status_code=404, detail="Пользователь не найден.")
